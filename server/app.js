@@ -8,7 +8,8 @@ const PORT = process.env.PORT || 3000;
 require('./config/db')
 // Import Routes
 const userRoutes = require('./routes/userRoute');
-const booksRoutes = require('./routes/bookRoute') 
+const booksRoutes = require('./routes/bookRoute');
+const favoriteRoutes = require('./routes/favorite') 
 
 //middleware
 app.use(express.json()) // tells the formate of data
@@ -21,6 +22,8 @@ app.get('/api', (req,res)=>{
 app.use('/api/user',userRoutes)
 // Books Routes:
 app.use('/api/book',booksRoutes)
+// favorite Routes:
+app.use('/api/favorite',favoriteRoutes)
 //Start Server
 app.listen(PORT,()=>{
     console.log(`Server is listening at ${PORT}..`)
