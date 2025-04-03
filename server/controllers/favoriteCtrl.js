@@ -20,7 +20,7 @@ const addBookToFavoriteCtrl = async(req , res )=>{
     }
 }
 
-//todo-------------------------- Add Book to Favorites Controller -------------------------
+//todo-------------------------- Remove Book from Favorites Controller -------------------------
 const removeBookFromFavoriteCtrl = async (req, res)=>{
     try {
         const {bookid, id } = req.headers;
@@ -38,4 +38,22 @@ const removeBookFromFavoriteCtrl = async (req, res)=>{
         console.log(error)
     }
 }
-module.exports = {addBookToFavoriteCtrl,removeBookFromFavoriteCtrl}
+
+//todo-------------------------- Get All Books from Favorites Controller -------------------------
+const getFavoriteBooksCtrl = async (req, res)=>{
+    try {
+        const { id } = req.headers;
+        const userData = await User.findById(id).populate("favorites");
+        const favoriteBooks = userData.favorites
+
+        return res.status(200).json({
+            status: "Success",
+            data: favoriteBooks,
+        })
+
+    } catch (error) {
+        res.status(500).json({message: "Internal server error!"})
+        console.log(error)
+    }
+}
+module.exports = {addBookToFavoriteCtrl,removeBookFromFavoriteCtrl,getFavoriteBooksCtrl}
