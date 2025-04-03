@@ -1,0 +1,23 @@
+const express = require('express');
+const router = express.Router();
+
+const {authenticateToken} = require('./userAuth')
+
+const {placeOrderCtrl,
+    orderHistoryCtrl,
+    getAllOrdersCtrl,
+    updateOrderStatusCtrl,
+} = require('../controllers/orderCtrl')
+
+//todo: --------------------- Place Order Route --------------------------
+router.put('/placeOrder', authenticateToken, placeOrderCtrl);
+//todo: --------------------- Order History Route --------------------------
+router.put('/orderHistory', authenticateToken, orderHistoryCtrl);
+//todo: --------------------- Get All Order Route --------------------------
+router.get('/getAllOrders', authenticateToken, getAllOrdersCtrl);
+//todo: --------------------- Update Order Status Route --------------------------
+router.get('/updateOrderStatus', authenticateToken, updateOrderStatusCtrl);
+
+
+
+module.exports = router;
