@@ -11,6 +11,7 @@ const userRoutes = require('./routes/userRoute');
 const booksRoutes = require('./routes/bookRoute');
 const favoriteRoutes = require('./routes/favorite');
 const cartRoutes = require('./routes/cartRoute'); 
+const orderRoutes = require('./routes/orderRoute'); 
 
 //middleware
 app.use(express.json()) // tells the formate of data
@@ -27,6 +28,8 @@ app.use('/api/book',booksRoutes)
 app.use('/api/favorite',favoriteRoutes)
 // Cart Routes:
 app.use('/api/cart', cartRoutes)
+// Order Routes:
+app.use('/api/order', orderRoutes)
 
 
 
