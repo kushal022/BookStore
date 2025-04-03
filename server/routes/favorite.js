@@ -11,8 +11,8 @@ const {addBookToFavoriteCtrl,
 //todo------------------- Add Book to Favorite --------------------
 router.put('/addBookToFavorite', authenticateToken, addBookToFavoriteCtrl)
 //todo------------------- Remove Book From Favorite --------------------
-router.delete('/removeBookFromFavorite', authenticateToken, removeBookFromFavoriteCtrl)
+router.put('/removeBookFromFavorite', authenticateToken, removeBookFromFavoriteCtrl)
 //todo------------------- Get All Books From Favorite --------------------
-router.get('/removeBookFromFavorite', authenticateToken, getFavoriteBooksCtrl)
+router.get('/getAllBooksFromFavorite', authenticateToken, getFavoriteBooksCtrl)
 
 module.exports = router;

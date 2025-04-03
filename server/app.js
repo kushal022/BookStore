@@ -9,7 +9,8 @@ require('./config/db')
 // Import Routes
 const userRoutes = require('./routes/userRoute');
 const booksRoutes = require('./routes/bookRoute');
-const favoriteRoutes = require('./routes/favorite') 
+const favoriteRoutes = require('./routes/favorite');
+const cartRoutes = require('./routes/cartRoute'); 
 
 //middleware
 app.use(express.json()) // tells the formate of data
@@ -24,6 +25,13 @@ app.use('/api/user',userRoutes)
 app.use('/api/book',booksRoutes)
 // favorite Routes:
 app.use('/api/favorite',favoriteRoutes)
+// Cart Routes:
+app.use('/api/cart', cartRoutes)
+
+
+
+
+
 //Start Server
 app.listen(PORT,()=>{
     console.log(`Server is listening at ${PORT}..`)
