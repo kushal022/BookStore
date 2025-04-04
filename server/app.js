@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors')
 
 require("dotenv").config();
 const PORT = process.env.PORT || 3000;
@@ -14,6 +15,7 @@ const cartRoutes = require('./routes/cartRoute');
 const orderRoutes = require('./routes/orderRoute'); 
 
 //middleware
+app.use(cors())
 app.use(express.json()) // tells the formate of data
 
 app.get('/api', (req,res)=>{
