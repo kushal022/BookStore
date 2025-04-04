@@ -22,7 +22,7 @@ const Navbar = () => {
         },
     ]
 
-    const [mobileNav, setMobileNav] = useState(true)
+    const [mobileNav, setMobileNav] = useState(false)
   return (
     <>
     <nav className='bg-zinc-800 text-white px-8 py-2 flex items-center justify-between z-50 relative' >
@@ -49,7 +49,7 @@ const Navbar = () => {
             </button>
         </div>
     </nav>
-    <div className={`${mobileNav?"block":"hidden"} bg-zinc-800 h-full pt-4 absolute top-15 left-0 w-full z-40 text-white`} >
+    <div className={`${mobileNav?"block":"hidden"} block md:hidden bg-zinc-800 h-full pt-4 absolute top-15 left-0 w-full z-40 text-white`} >
         <div className='flex flex-col items-center gap-4'>
             {links.map((item,i)=>(
                 <Link to={item.link} onClick={()=>setMobileNav(!mobileNav)} className=' font-semibold hover:text-blue-500 transition-all duration-300' key={i}>{item.title}</Link>
