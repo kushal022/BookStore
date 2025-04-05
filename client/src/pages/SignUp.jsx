@@ -1,7 +1,37 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React, { useState } from 'react'
+import {Link, useNavigate} from 'react-router-dom'
+import axios from 'axios'
 
 const SignUp = () => {
+  const [Values, setValues] = useState({
+    username: '',
+    email:'',
+    password: '',
+    address: '',
+  })
+
+  const navigate = useNavigate();
+
+  const handlerChange = (e)=>{  // e--> event obj that react passes to event handlers
+      const {name, value} = e.target;
+      setValues({...Values, [name]: value})
+  }
+
+  const handlerSubmit = async()=>{
+    try {
+      if(Values.username===''||Values.email===''||Values.password===''||Values.address===''){
+        alert("All fields are required")
+      }else{
+        const res = await axios.post('http://localhost:3500/api/user/signup',Values);
+        // console.log(res.data)
+        alert(res.data.message)
+        navigate('/login')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className='h-auto bg-zinc-900 px-12 py-8 flex items-center justify-center'>
         <div className='bg-zinc-800 rounded-lg px-8 py-5 w-full md:w-3/6 lg:w-2/6'>
@@ -13,7 +43,9 @@ const SignUp = () => {
                   className='w-full mt-2 bg-zinc-900 text-zinc-100 p-2 outline-none'
                   placeholder='username'
                   name='username'
-                  required  
+                  required 
+                  value={Values.username}
+                  onChange={handlerChange} 
                 />
             </div>
             <div className='mt-4'>
@@ -23,7 +55,9 @@ const SignUp = () => {
                   className='w-full mt-2 bg-zinc-900 text-zinc-100 p-2 outline-none'
                   placeholder='abc@gmail.com'
                   name='email'
-                  required  
+                  required 
+                  value={Values.email}
+                  onChange={handlerChange}  
                 />
             </div>
             <div className='mt-4'>
@@ -33,7 +67,9 @@ const SignUp = () => {
                   className='w-full mt-2 bg-zinc-900 text-zinc-100 p-2 outline-none'
                   placeholder='password'
                   name='password'
-                  required  
+                  required
+                  value={Values.password}
+                  onChange={handlerChange}   
                 />
             </div>
             <div className='mt-4'>
@@ -44,11 +80,14 @@ const SignUp = () => {
                   placeholder='Enter your address....'
                   rows='5'
                   name='address'
-                  required  
+                  required
+                  value={Values.address}
+                  onChange={handlerChange}   
                 />
             </div>
             <div className='mt-4'>
-                <button className='w-full bg-blue-500 text-white font-semibold py-2 rounded hover:bg-zinc-300 hover:text-zinc-900 transition-all duration-300' >
+                <button onClick={handlerSubmit} 
+                 className='w-full bg-blue-500 text-white font-semibold py-2 rounded hover:bg-zinc-300 hover:text-zinc-900 transition-all duration-300' >
                   SignUp
                 </button>
             </div>
