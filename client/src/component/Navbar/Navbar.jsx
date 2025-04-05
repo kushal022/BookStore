@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FaGripLines } from "react-icons/fa";
+import {useSelector} from "react-redux"
 
 const Navbar = () => {
     const links = [
@@ -8,11 +9,11 @@ const Navbar = () => {
             title: "Home",
             link: "/",
         },{
-            title: "About Us",
-            link: "/about",
-        },{
             title: "All Books",
             link: "/all-books",
+        },{
+            title: "About Us",
+            link: "/about",
         },{
             title: "Cart",
             link: "/cart",
@@ -22,7 +23,14 @@ const Navbar = () => {
         },
     ]
 
-    const [mobileNav, setMobileNav] = useState(false)
+    const [mobileNav, setMobileNav] = useState(false);
+
+    const isLoggedIn = useSelector((state)=> state.auth.isLoggedIn);
+
+    if(isLoggedIn === false){
+        links.splice(3,2)
+    }
+
   return (
     <>
     <nav className='bg-zinc-800 text-white px-8 py-2 flex items-center justify-between z-50 relative' >

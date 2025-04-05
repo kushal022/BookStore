@@ -14,7 +14,6 @@ import BookDetails from './component/BookDetails/BookDetails'
 const App = () => {
   return (
     <div>
-      <BrowserRouter>
         <Navbar/>
         <Routes>
           <Route exact path='/' element={<Home/>} />
@@ -27,7 +26,6 @@ const App = () => {
           <Route  path='/bookDetails/:id' element={<BookDetails/>} />
         </Routes>
         <Footer/>
-      </BrowserRouter>
     </div>
   )
 }
