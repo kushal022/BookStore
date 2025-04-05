@@ -101,7 +101,7 @@ const getUserCtrl = async(req,res)=>{
 }
 
 
-//todo: ------------------ Get User Ctrl ------------------------
+//todo: ------------------ Update User address Ctrl ------------------------
 const updateUserAddressCtrl = async(req,res)=>{
     try {
         const  { id } = req.headers;

@@ -4,10 +4,19 @@ import Loader from '../Loader/Loader';
 import BookCard from '../BookCard/BookCard';
 import { useParams } from 'react-router-dom'
 import { MdLanguage } from "react-icons/md";
+import { FaRegHeart } from "react-icons/fa";
+import { IoCartOutline } from "react-icons/io5";
+import { MdEditSquare } from "react-icons/md";
+import { RiDeleteBin6Fill } from "react-icons/ri";
+import { useSelector } from 'react-redux'
 
 const BookDetails = () => {
     const {id} = useParams();
     const [Data, setData] = useState();
+
+    const isLoggedIn = useSelector((state)=> state.auth.isLoggedIn)
+    const role = useSelector((state)=> state.auth.role)
+
     
     useEffect(()=>{
         const fetch = async()=>{
@@ -19,12 +28,34 @@ const BookDetails = () => {
     },[])
 
   return (
-    <div className='px-4 md:px-12 py-8 bg-zinc-900 flex flex-col md:flex-row gap-8'>
+    <div className='px-4 md:px-12 h-full py-8 bg-zinc-900 flex flex-col lg:flex-row gap-8'>
         {!Data && <div className='w-full h-screen flex  items-center justify-center'><Loader/></div>}
         { Data && 
             (<> 
-                <div className='bg-zinc-800 rounded p-4 h-[60vh] lg:h-[88vh] w-full lg:w-3/6 flex  items-center justify-center'>
-                    <img src={ Data.url} className='h-[50vh] lg:h-[70vh] rounded' alt="bookImage" />
+                <div className=' w-full lg:w-3/6 '>
+                    <div className='bg-zinc-800 rounded px-4 py-12 flex flex-col md:flex-row justify-around'>
+                        <img src={ Data.url} className='h-[50vh] lg:h-[70vh] rounded' alt="bookImage" />
+                        {isLoggedIn === true && role === 'user' &&
+                            <div className='flex flex-row md:flex-col justify-between md:justify-start gap-4 mt-5 md:mt-0'>
+                                <button className='bg-white rounded md:rounded-full text-2xl px-6 py-2 md:p-2 text-red-500 flex items-center justify-center'>
+                                    <FaRegHeart /><span className='ms-4 block md:hidden'>Favorites</span>
+                                </button>
+                                <button className='bg-blue-500 rounded md:rounded-full text-2xl px-6 py-2 md:p-2 text-white flex items-center justify-center'>
+                                    <IoCartOutline /><span className='ms-4 block md:hidden'>Add to cart</span>
+                                </button>
+                            </div>
+                        }
+                        {isLoggedIn === true && role === 'admin' &&
+                            <div className='flex flex-row md:flex-col justify-between md:justify-start gap-4 mt-5 md:mt-0'>
+                                <button className='bg-blue-500 rounded md:rounded-full text-2xl px-6 py-2 md:p-2 text-white flex items-center justify-center'>
+                                    <MdEditSquare /><span className='ms-4 block md:hidden'>Edit</span>
+                                </button>
+                                <button className='bg-white rounded md:rounded-full text-2xl px-6 py-2 md:p-2 text-red-500 flex items-center justify-center'>
+                                    <RiDeleteBin6Fill /><span className='ms-4 block md:hidden'>Delete Book</span>
+                                </button>
+                            </div>
+                        }
+                    </div>
                 </div>
                 <div className='p-4 w-full lg:w-3/6' >
                     <h1 className='text-4xl text-zinc-300 font-semibold'>{Data.title}</h1>

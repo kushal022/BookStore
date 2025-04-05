@@ -12,11 +12,11 @@ router.post('/signup', signUpCtrl )
 
 router.post('/signin', loginCtrl )
 
-//todo: ----------------------- getUserCtrl Route -----------------------
+//todo: ----------------------- getUser info Route -----------------------
 
 router.get('/getUser',authenticateToken, getUserCtrl )
 
-//todo: ----------------------- getUserCtrl Route -----------------------
+//todo: ----------------------- Update User Route -----------------------
 
 router.put('/updateUserAddress', authenticateToken, updateUserAddressCtrl)
 
