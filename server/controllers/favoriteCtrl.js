@@ -9,7 +9,7 @@ const addBookToFavoriteCtrl = async(req , res )=>{
 
         const isBookFavorite = userData.favorites.includes(bookid)
         if(isBookFavorite){
-            return res.status(400).json({message: "Book is already in favorites"})
+            return res.status(301).json({message: "Book is already in favorites"})
         }
 
         await User.findByIdAndUpdate(id, {$push:{favorites: bookid}})

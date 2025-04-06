@@ -30,11 +30,11 @@ useEffect(()=>{
         <div className='w-full h-[100%] flex justify-center items-center' ><Loader /></div>
       ) : (
         <>
-          <div className="w-full md:w-1/6">
+          <div className="w-full md:w-1/6 h-auto">
             <SideBar data={Profile} />
           </div>
 
-          <div className="w-full md:w-5/6">
+          <div className="w-full md:w-5/6 ">
             <Outlet />
           </div>
         </>
