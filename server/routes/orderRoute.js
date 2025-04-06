@@ -10,7 +10,7 @@ const {placeOrderCtrl,
 } = require('../controllers/orderCtrl')
 
 //todo: --------------------- Place Order Route --------------------------
-router.put('/placeOrder', authenticateToken, placeOrderCtrl);
+router.post('/placeOrder', authenticateToken, placeOrderCtrl);
 //todo: --------------------- Order History Route --------------------------
 router.put('/orderHistory', authenticateToken, orderHistoryCtrl);
 //todo: --------------------- Get All Order Route --------------------------

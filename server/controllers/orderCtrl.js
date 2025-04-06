@@ -6,11 +6,11 @@ const Order = require('../model/orderModel')
 const placeOrderCtrl = async (req,res)=>{
     try {
         const {id} = req.headers;
-        const {order} = req.body;
+        const {order} = req.body; // Order from cart
 
         for(const orderData of order){
             const newOrder = new Order({user:id,book:orderData._id});
-            const orderDataFromDb = await newOrder.save();
+            const orderDataFromDb = await newOrder.save(); // history
             //saving order in user model:
             await User.findByIdAndUpdate(id,{$push:{orders:orderDataFromDb}});
             //clearing Cart:
