@@ -1,11 +1,23 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FaArrowRightFromBracket } from "react-icons/fa6";
+import {useDispatch} from 'react-redux'
+import {authActions} from '../../store/auth'
 
 
 const SideBar = ({data}) => {
+    const dispatch = useDispatch();
+    const history = useNavigate()
     
-
+    //todo- handler Logout:
+    const handlerLogout = ()=>{
+        dispatch(authActions.logout());
+        dispatch(authActions.changeRole('user'));
+        localStorage.clear('id')
+        localStorage.clear('token')
+        localStorage.clear('role')
+        history('/')
+    }
 
   return (
     <div className='bg-zinc-800 p-4 rounded flex flex-col items-center justify-between h-auto lg:h-[100%]'>
@@ -33,7 +45,8 @@ const SideBar = ({data}) => {
                 Setting
             </Link>
         </div>
-        <button className='bg-zinc-900  lg:w-full rounded px-4 py-2 mt-4 lg:mt-0 text-white font-semibold flex items-center justify-center hover:bg-white hover:text-zinc-900 transition-all duration-300 '>
+        <button onClick={handlerLogout} 
+            className='bg-zinc-900  lg:w-full rounded px-4 py-2 mt-4 lg:mt-0 text-white font-semibold flex items-center justify-center hover:bg-white hover:text-zinc-900 transition-all duration-300 '>
             Log Out <FaArrowRightFromBracket className='ms-4'/> 
         </button>
     </div>
