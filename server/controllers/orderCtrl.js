@@ -32,9 +32,10 @@ const placeOrderCtrl = async (req,res)=>{
 const orderHistoryCtrl = async (req,res)=>{
     try {
         const {id} = req.headers;
-        const userData = await User.findById(id).populate({
-            path: "order",
-            populate: {path: 'books'},
+        const userData = await User.findById(id)
+        .populate({
+            path: "orders",
+            populate: {path:'book'},
         });
 
         const ordersData = userData.orders.reverse();
