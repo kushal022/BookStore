@@ -25,12 +25,12 @@ useEffect(()=>{
 },[])
 
   return (
-    <div className="bg-zinc-900 px-12 flex flex-col md:flex-row gap-4 w-full h-screen py-8 text-white">
+    <div className="bg-zinc-900 px-5 lg:px-12 flex flex-col md:flex-row gap-4 w-full min-h-screen h-fit py-8 text-white">
       {!Profile ? (
         <div className='w-full h-[100%] flex justify-center items-center' ><Loader /></div>
       ) : (
         <>
-          <div className="w-full md:w-1/6 h-auto">
+          <div className="w-full md:w-1/6 min-w-fit h-auto">
             <SideBar data={Profile} />
           </div>
 
