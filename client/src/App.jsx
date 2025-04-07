@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import Navbar from './component/Navbar/Navbar'
 import Footer from './component/Footer/Footer'
@@ -10,11 +10,28 @@ import AboutUs from './pages/AboutUs'
 import Cart from './pages/Cart'
 import Profile from './pages/Profile'
 import BookDetails from './component/BookDetails/BookDetails'
+import { useDispatch,useSelector } from 'react-redux'
+import { authActions } from './store/auth'
+import Favorite from './component/Profile/Favorite'
+import UserOrderHistory from './component/Profile/UserOrderHistory'
+import Settings from './component/Profile/Settings'
 
 const App = () => {
+  const dispatch = useDispatch();
+  const role = useSelector((state)=> state.auth.role)
+
+  useEffect(()=>{
+    if(localStorage.getItem("id") &&
+       localStorage.getItem("token") &&
+       localStorage.getItem("role") 
+    ){
+      dispatch(authActions.login());
+      dispatch(authActions.changeRole(localStorage.getItem('role')));
+    }
+  },[])
+
   return (
     <div>
-      <BrowserRouter>
         <Navbar/>
         <Routes>
           <Route exact path='/' element={<Home/>} />
@@ -23,11 +40,14 @@ const App = () => {
           <Route  path='/signup' element={<SignUp/>} />
           <Route  path='/about' element={<AboutUs/>} />
           <Route  path='/cart' element={<Cart/>} />
-          <Route  path='/profile' element={<Profile/>} />
+          <Route  path='/profile' element={<Profile/>} >
+            <Route index element={<Favorite/>} />
+            <Route path='/profile/orderHistory' element={<UserOrderHistory/>} />
+            <Route path='/profile/settings' element={<Settings/>} />
+          </Route>
           <Route  path='/bookDetails/:id' element={<BookDetails/>} />
         </Routes>
         <Footer/>
-      </BrowserRouter>
     </div>
   )
 }
