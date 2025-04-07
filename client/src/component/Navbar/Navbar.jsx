@@ -12,9 +12,6 @@ const Navbar = () => {
             title: "All Books",
             link: "/all-books",
         },{
-            title: "About Us",
-            link: "/about",
-        },{
             title: "Cart",
             link: "/cart",
         },{
@@ -33,13 +30,13 @@ const Navbar = () => {
     const role = useSelector((state)=> state.auth.role);
 
     if(isLoggedIn === false){
-        links.splice(3,2)
+        links.splice(2,3)
     }
     if(isLoggedIn === true && role === "admin" ){
-        links.splice(4,1)
+        links.splice(3,1)
     }
     if(isLoggedIn === true && role === "user" ){
-        links.splice(5,1)
+        links.splice(4,1)
     }
 
   return (

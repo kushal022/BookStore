@@ -49,14 +49,14 @@ const orderHistoryCtrl = async (req,res)=>{
         res.status(500).json({message: "Internal server error!"})
         console.log(error)
     }
-}
+} 
 
 //todo-------------------------- Get All Orders Controller : For Admin Only -------------------------
 const getAllOrdersCtrl = async (req,res)=>{
     try {
-        const userData = await Order.find()
+        const orderData = await Order.find()
         .populate({
-            path: "books",
+            path: "book",
         })
         .populate({
             path: "user",
@@ -65,7 +65,7 @@ const getAllOrdersCtrl = async (req,res)=>{
 
         return res.json({
             status: "Success",
-            data: userData
+            data: orderData
         })
 
     } catch (error) {
@@ -78,7 +78,9 @@ const getAllOrdersCtrl = async (req,res)=>{
 const updateOrderStatusCtrl = async (req,res)=>{
     try {
         const {id} = req.params; // order id
-        await Order.findByIdAndUpdate(id,{status: req.body.status})
+        const status = req.body.status
+        // console.log(status)
+        await Order.findByIdAndUpdate(id,{status: status})
 
         return res.json({
             status: "Success",

@@ -16,7 +16,7 @@ router.get('/orderHistory', authenticateToken, orderHistoryCtrl);
 //todo: --------------------- Get All Order Route --------------------------
 router.get('/getAllOrders', authenticateToken, getAllOrdersCtrl);
 //todo: --------------------- Update Order Status Route --------------------------
-router.get('/updateOrderStatus', authenticateToken, updateOrderStatusCtrl);
+router.put('/updateOrderStatus/:id', authenticateToken, updateOrderStatusCtrl);
 
 
 
