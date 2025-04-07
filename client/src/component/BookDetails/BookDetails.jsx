@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Loader from '../Loader/Loader';
 import BookCard from '../BookCard/BookCard';
-import { useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { MdLanguage } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
@@ -13,11 +13,12 @@ import { useSelector } from 'react-redux'
 const BookDetails = () => {
     const {id} = useParams(); // bookId
     const [Data, setData] = useState();
+    const navigate = useNavigate();
 
     const isLoggedIn = useSelector((state)=> state.auth.isLoggedIn)
     const role = useSelector((state)=> state.auth.role)
 
-    // Get book by id: 
+    //todo:  Get book by id: 
     useEffect(()=>{
         const fetch = async()=>{
             const res = await axios.get(`http://localhost:3500/api/book/getBookById/${id}`);
@@ -27,7 +28,7 @@ const BookDetails = () => {
         fetch()
     },[])
 
-    // Headers: 
+    //todo:  Headers: 
     const headers = {
         id:localStorage.getItem('id'),
         authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -62,6 +63,35 @@ const BookDetails = () => {
         }
     }
 
+    //todo: Handler Delete Book:
+    const handlerDeleteBook = async()=>{
+        try {
+            const res = await axios.delete('http://localhost:3500/api/book/deleteBook',
+                {headers}
+            );
+            // console.log(res)
+            alert(res.data.message)
+            navigate('/all-books')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+   
+    //todo: Handler Edit Book:
+    const handlerEditBook = async()=>{
+        try {
+            const res = await axios.put('http://localhost:3500/api/book/updateBook',
+                {headers}
+            );
+            // console.log(res)
+            alert(res.data.message)
+            navigate('/all-books')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
   return (
     <div className='px-4 md:px-12 h-full py-8 bg-zinc-900 flex flex-col lg:flex-row gap-8'>
         {!Data && <div className='w-full h-screen flex  items-center justify-center'><Loader/></div>}
@@ -84,10 +114,12 @@ const BookDetails = () => {
                         }
                         {isLoggedIn === true && role === 'admin' &&
                             <div className='flex flex-row md:flex-col justify-between md:justify-start gap-4 mt-5 md:mt-0'>
-                                <button className='bg-blue-500 rounded md:rounded-full text-2xl px-6 py-2 md:p-2 text-white flex items-center justify-center'>
+                                <Link to={`/updateBook/${id}`} 
+                                    className='bg-blue-500 rounded md:rounded-full text-2xl px-6 py-2 md:p-2 text-white flex items-center justify-center'>
                                     <MdEditSquare /><span className='ms-4 block md:hidden'>Edit</span>
-                                </button>
-                                <button className='bg-white rounded md:rounded-full text-2xl px-6 py-2 md:p-2 text-red-500 flex items-center justify-center'>
+                                </Link>
+                                <button onClick={handlerDeleteBook} 
+                                    className='bg-white rounded md:rounded-full text-2xl px-6 py-2 md:p-2 text-red-500 flex items-center justify-center'>
                                     <RiDeleteBin6Fill /><span className='ms-4 block md:hidden'>Delete Book</span>
                                 </button>
                             </div>

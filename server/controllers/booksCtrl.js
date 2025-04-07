@@ -30,13 +30,13 @@
 
   const updateBooksCtrl = async (req,res)=>{
     try {
-        const {id} = req.headers;
+        const {bookid} = req.headers;
 
-        if (!id) {
+        if (!bookid) {
             return res.status(400).json({ message: "Book ID is required" });
         }
 
-        const updatedBook = await books.findByIdAndUpdate (id,{
+        const updatedBook = await books.findByIdAndUpdate (bookid,{
             url: req.body.url,
             title: req.body.title,
             author: req.body.author,
@@ -61,12 +61,12 @@
 
   const deleteBooksCtrl = async (req,res)=>{
     try {
-        const {id} = req.headers;
-         if (!id) {
+        const {bookid} = req.headers;
+         if (!bookid) {
             return res.status(400).json({ message: "Book ID is required" });
         }
         
-        await books.findByIdAndDelete(id);
+        await books.findByIdAndDelete(bookid);
 
         return res.status(200).json({message: "Book deleted successfully"})
     } catch (error) {
