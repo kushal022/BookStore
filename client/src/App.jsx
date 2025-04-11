@@ -35,7 +35,7 @@ const App = () => {
 
   return (<>
         <Navbar/>
-    <div className='h-screen flex flex-col justify-between bg-zinc-900'>
+    <div className='flex flex-col justify-between bg-zinc-900'>
         <Routes>
           <Route exact path='/' element={<Home/>} />
           <Route  path='/all-books' element={<AllBooks/>} />
