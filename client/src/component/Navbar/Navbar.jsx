@@ -33,7 +33,7 @@ const Navbar = () => {
         links.splice(2,3)
     }
     if(isLoggedIn === true && role === "admin" ){
-        links.splice(3,1)
+        links.splice(2,2)
     }
     if(isLoggedIn === true && role === "user" ){
         links.splice(4,1)
@@ -78,7 +78,7 @@ const Navbar = () => {
     </nav>
 
     {/* ------------ Mobile Nav ------------------ */}
-    <div className={`${mobileNav?"block":"hidden"} block md:hidden bg-zinc-800 h-full pt-4 absolute top-15 left-0 w-full z-40 text-white`} >
+    <div className={`${mobileNav?"block":"hidden"} block md:hidden bg-zinc-800 h-fit py-4 absolute top-15 left-0 w-full z-40 text-white`} >
         <div className='flex flex-col items-center gap-4'>
             {links.map((item,i)=>(
                 <Link to={item.link} onClick={()=>setMobileNav(!mobileNav)} className=' font-semibold hover:text-blue-500 transition-all duration-300' key={i}>{item.title}</Link>

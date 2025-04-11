@@ -33,9 +33,9 @@ const App = () => {
     }
   },[])
 
-  return (
-    <div>
+  return (<>
         <Navbar/>
+    <div className='flex flex-col justify-between bg-zinc-900'>
         <Routes>
           <Route exact path='/' element={<Home/>} />
           <Route  path='/all-books' element={<AllBooks/>} />
@@ -54,6 +54,7 @@ const App = () => {
         </Routes>
         <Footer/>
     </div>
+    </>
   )
 }
 
